@@ -1,13 +1,12 @@
----
+--
 - name: Install Additional / Update Current packages needed for ElasticSearch, Kibana, and Logstash
-  apt:
+  yum:
     name:
-      - openjdk-11-jdk
-      - apt-transport-https
-      - software-properties-common
-      - curl
-      - wget
-      - gnupg2
+    - java-openjdk
+    - java-openjdk-devel
+    - curl
+    - wget
+    - gnupg2
     state: latest
 
 - name: Add an APT Repository Key for ElasticSearch
@@ -17,7 +16,7 @@
 
 - name: Add an APT Repository for the Key of ElasticSearch
   apt_repository:
-    repo: "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+    repo: "deb https://artifacts.elastic.co/packages/7.x/yum stable main"
     state: latest
 
 - name: Install the ElasticSearch in Ubuntu
@@ -39,7 +38,6 @@
   service:
     name: elasticsearch
     state: started
-    enabled: true
 
 - name: Start the Logstash Service in Ubuntu
   service:
